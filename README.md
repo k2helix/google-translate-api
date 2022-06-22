@@ -1,4 +1,5 @@
-# google-translate-api-axios
+# google-translate-api-axios DEPRECATED
+# Use [google-translate-api-x](https://www.npmjs.com/package/google-translate-api-x)
 [![Actions Status](https://github.com/AidanWelch/google-translate-api/workflows/autotests/badge.svg)](https://github.com/AidanWelch/google-translate-api/actions)
 [![NPM version](https://img.shields.io/npm/v/google-translate-api-axios.svg)](https://www.npmjs.com/package/google-translate-api-axios)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)

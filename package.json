@@ -46,13 +46,13 @@
   },
   "homepage": "https://github.com/AidanWelch/google-translate-api#readme",
   "devDependencies": {
-    "ava": "^3.15.0",
+    "ava": "^4.3.1",
     "codecov": "^3.8.1",
-    "coveralls": "^2.11.11",
+    "coveralls": "^3.1.1",
     "husky": "^3.0.4",
-    "np": "^7.6.0",
+    "np": "^7.6.2",
     "nyc": "^15.1.0",
-    "xo": "^0.16.0"
+    "xo": "^0.51.0"
   },
   "xo": {
     "space": 4,
@@ -66,8 +66,5 @@
       "no-loop-func": "warn",
       "no-dupe-keys": "warn"
     }
-  },
-  "peerDependencies": {
-    "axios": "^0.27.2"
   }
 }

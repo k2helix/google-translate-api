@@ -1,7 +1,3 @@
-let axios;
-try {
-    axios = require('axios');
-} catch (err) {}
 var languages = require('./languages');
 
 function extract(key, res) {
@@ -48,24 +44,6 @@ function translate(input, opts, requestOptions) {
                 e = new Error();
                 e.code = 400;
                 e.message = 'fetch was not found';
-                break;
-            }
-        case 'axios':
-            if (axios) {
-                requestFunction = function (url, requestOptions, body) {
-                    const axiosconfig = {
-                        ...requestOptions,
-                        url: url,
-                        data: body
-                    };
-                    return axios(axiosconfig).then(res => res.data);
-                };
-                break;
-            }
-            if (opts.requestFunction === 'axios') {
-                e = new Error();
-                e.code = 400;
-                e.message = 'axios was not found';
                 break;
             }
         default:

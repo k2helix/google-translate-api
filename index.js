@@ -1,3 +1,5 @@
+
+const fetch = require('node-fetch');
 var languages = require('./languages');
 
 function extract(key, res) {
@@ -8,6 +10,17 @@ function extract(key, res) {
     }
     return '';
 }
+
+function request (url, requestOptions, body) {
+    const fetchinit = {
+        ...requestOptions,
+        // headers: new Headers(requestOptions.headers),
+        credentials: requestOptions.credentials || 'omit',
+        body: body
+    };
+    return fetch(url, fetchinit).then(res => res.text());
+};
+
 
 function translate(input, opts, requestOptions) {
     opts = opts || {};
@@ -21,41 +34,6 @@ function translate(input, opts, requestOptions) {
             e.message = 'The language \'' + lang + '\' is not supported';
         }
     });
-
-    let requestFunction;
-    opts.requestFunction = typeof opts.requestFunction === 'string' ? opts.requestFunction.toLowerCase() : opts.requestFunction;
-
-    switch (opts.requestFunction) {
-        case undefined:
-        case 'fetch':
-            if (typeof fetch !== 'undefined') {
-                requestFunction = function (url, requestOptions, body) {
-                    const fetchinit = {
-                        ...requestOptions,
-                        headers: new Headers(requestOptions.headers),
-                        credentials: requestOptions.credentials || 'omit',
-                        body: body
-                    };
-                    return fetch(url, fetchinit).then(res => res.text());
-                };
-                break;
-            }
-            if (opts.requestFunction === 'fetch') {
-                e = new Error();
-                e.code = 400;
-                e.message = 'fetch was not found';
-                break;
-            }
-        default:
-            if (typeof opts.requestFunction === 'string') {
-                e = new Error();
-                e.code = 400;
-                e.message = (opts.requestFunction || 'axios and fetch') + ' was not found';
-            } else {
-                requestFunction = opts.requestFunction;
-            }
-
-    }
 
     if (e) {
         return new Promise(function (resolve, reject) {
@@ -80,7 +58,7 @@ function translate(input, opts, requestOptions) {
     // * AVdN8 - return suggest
     // * exi25c - return some technical info
     var rpcids = 'MkEWBc';
-    return requestFunction(url, requestOptions).then(function (res) {
+    return request(url, requestOptions).then(function (res) {
         var data = {
             'rpcids': rpcids,
             'source-path': '/',
@@ -115,7 +93,7 @@ function translate(input, opts, requestOptions) {
             const body = 'f.req=' + encodeURIComponent(JSON.stringify(freq)) + '&';
 
             textRequests.push(
-                requestFunction(url, requestOptions, body).then(function (res) {
+                request(url, requestOptions, body).then(function (res) {
                     var json = res.slice(6);
                     var length = '';
 

@@ -14,7 +14,7 @@ function extract(key, res) {
 function request (url, requestOptions, body) {
     const fetchinit = {
         ...requestOptions,
-        // headers: new Headers(requestOptions.headers),
+        headers: requestOptions.headers,
         credentials: requestOptions.credentials || 'omit',
         body: body
     };
